@@ -29,6 +29,7 @@ import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -38,7 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainMapActivity extends Activity implements LocationListener {
+public class MainMapActivity extends Activity implements LocationListener, OnMapReadyCallback {
 
     private int userIcon, foodIcon, gasIcon, lodgingIcon, otherIcon;
     private GoogleMap theMap;
@@ -60,7 +61,7 @@ public class MainMapActivity extends Activity implements LocationListener {
         otherIcon = R.drawable.purple_point;
 
         if (theMap == null) {
-            theMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.the_map)).getMap();
+            ((MapFragment) getFragmentManager().findFragmentById(R.id.the_map)).getMapAsync(this);
             if (theMap != null) {
                 //ok - proceed
                 theMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -124,6 +125,11 @@ public class MainMapActivity extends Activity implements LocationListener {
             return;
         }
         locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 100, this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 
     private class GetPlaces extends AsyncTask<String, Void, String> {
