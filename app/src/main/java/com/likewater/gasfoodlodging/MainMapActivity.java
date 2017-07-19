@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -34,12 +35,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainMapActivity extends Activity implements LocationListener, OnMapReadyCallback {
+public class MainMapActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback {
+    private GoogleMap mMap;
 
     private int userIcon, foodIcon, gasIcon, lodgingIcon, otherIcon;
     private GoogleMap theMap;
@@ -53,6 +56,9 @@ public class MainMapActivity extends Activity implements LocationListener, OnMap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         userIcon = R.drawable.user_icon;
         foodIcon = R.drawable.food_icon;
@@ -129,7 +135,7 @@ public class MainMapActivity extends Activity implements LocationListener, OnMap
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+       mMap = googleMap;
     }
 
     private class GetPlaces extends AsyncTask<String, Void, String> {
