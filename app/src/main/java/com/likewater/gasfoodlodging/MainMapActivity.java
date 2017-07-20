@@ -41,7 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainMapActivity extends Activity implements LocationListener, OnMapReadyCallback {
+public class MainMapActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback {
 
 
     private int userIcon, foodIcon, gasIcon, lodgingIcon, otherIcon;
@@ -117,7 +117,7 @@ public class MainMapActivity extends Activity implements LocationListener, OnMap
                 "json?location=" + lat + "," + lng +
                 "&radius=1000&sensor=true" +
                 "&types=gas_station%7Clodging%7Cfood" +
-                "&key=AIzaSyDv4KEdJ36I6Jb3lG_FoGS35K4oaxir3eY";
+                "&key=AIzaSyCK18qSGwJlCbIQQV2rKU2FvXTka6Pn3CA";
 //                "&key=AIzaSyA9qlyBGNGDhzNqPleM53d5tU3z72K4zVA";
 
         new GetPlaces().execute(placesSearchStr);
