@@ -41,8 +41,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainMapActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback {
-    private GoogleMap mMap;
+public class MainMapActivity extends Activity implements LocationListener, OnMapReadyCallback {
+
 
     private int userIcon, foodIcon, gasIcon, lodgingIcon, otherIcon;
     private GoogleMap theMap;
@@ -56,9 +56,9 @@ public class MainMapActivity extends FragmentActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_map);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.the_map);
+//        mapFragment.getMapAsync(this);
 
         userIcon = R.drawable.user_icon;
         foodIcon = R.drawable.food_icon;
@@ -117,7 +117,8 @@ public class MainMapActivity extends FragmentActivity implements LocationListene
                 "json?location=" + lat + "," + lng +
                 "&radius=1000&sensor=true" +
                 "&types=gas_station%7Clodging%7Cfood" +
-                "&key=AIzaSyA9qlyBGNGDhzNqPleM53d5tU3z72K4zVA";
+                "&key=AIzaSyDv4KEdJ36I6Jb3lG_FoGS35K4oaxir3eY";
+//                "&key=AIzaSyA9qlyBGNGDhzNqPleM53d5tU3z72K4zVA";
 
         new GetPlaces().execute(placesSearchStr);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -135,7 +136,7 @@ public class MainMapActivity extends FragmentActivity implements LocationListene
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-       mMap = googleMap;
+       theMap = googleMap;
     }
 
     private class GetPlaces extends AsyncTask<String, Void, String> {
